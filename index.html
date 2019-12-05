@@ -1,0 +1,156 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Game: Rock , Paper , scissors</title>
+     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="style.css">
+
+ </head>
+ <body>
+
+     <div class="head"><h1>Rock , Paper , Scissors</h1></div>
+     <div class="box">
+        
+     <span>Player</span>
+     <h1 id="counter"></h1>
+     <span>Comp</span>
+     </div>
+     <section>  
+         <img src="https://img.icons8.com/color/48/000000/hand-rock.png" name="rock">
+         <img src="https://img.icons8.com/color/48/000000/hand.png" name="paper">
+         <img src="https://img.icons8.com/color/48/000000/hand-scissors.png"  name="scissors">
+     </section>
+     <h4 class="talk"></h4>
+     <h2 style="color: brown ;" class="hLast"></h2>
+
+     <script>
+     
+     let h2 = document.querySelector('.hLast'),
+         choise = document.querySelectorAll('img'),
+         h4 = document.querySelector('.talk') ,
+         count = document.getElementById('counter'),
+
+         // score computer and player 
+         comp = 0 ,
+         player = 0 ;
+
+        function score() {
+            counter.innerHTML = `${player}:${comp}`;
+            val = true;
+        }
+
+        // loop for items clicked
+         choise.forEach((e) => e.addEventListener('click' , choiseValue ));
+
+
+
+        // this val assign boolean because stop clicked 
+        let val = true ;
+
+         // func item clicker 
+         function choiseValue() {
+             // prevent another click 
+             if(!val) return ;
+             h4.innerHTML = `you choise ${this.name}`;
+             val = false ;
+             // beacuse click again remove value indise 
+             h2.innerHTML = '';
+             // timer choise computer 
+             setTimeout(turnText , 1500 );
+         }
+
+
+
+         // text switch 'turn computer '
+        function turnText() {
+            h2.innerHTML = 'now turn computer !';
+            setTimeout(choiceCopmuter , 1000) ;
+        }
+
+
+        function choiceCopmuter() {
+            
+            // varibale save what you choise value inside tag 
+            let savePlayer = h4.innerHTML.split(' ')[2];
+            
+            // save value computer beacuse bus to another function ===> winner 
+            let computerChoise = randomChoiseComp() ;
+            h2.innerHTML = '';
+            h4.innerHTML = `computer choise ${computerChoise}` ;
+
+            // timer check winner first arg choise player , second computer 
+            setTimeout( () => Winner(savePlayer , computerChoise) , 2000);
+        }
+
+
+        function Winner(first , second ) {
+            // cut the word because easy to write condation 
+            let valueWin = first.charAt(0) + second.charAt(0);
+
+            switch(valueWin) {
+                case "rs":
+                case "pr":
+                case "sp":    
+                h2.innerHTML = 'Good Work You are Win !'
+                h4.innerHTML = '';
+                player++ ;
+                score();
+                break ;
+                case 'sr':
+                case 'rp':
+                case 'ps':
+                h2.innerHTML = `Computer is Win!` ;
+                h4.innerHTML = '';
+                comp++ ;
+                score();
+                break;
+                case 'rr':
+                case 'ss':
+                case 'pp':
+                h2.innerHTML = '<h1>Draw !</h1>'  
+                h4.innerHTML = '';
+                comp++ ;
+                player++ ;
+                score();
+                break ;
+            }
+            
+        }
+
+        // closure method return value random for items 
+         function randomChoiseComp() {
+            // random number count the item [ 0 - 2]
+             let randomNum = Math.floor(Math.random() * choise.length );
+             return choise[randomNum].name;
+         }
+
+
+         score();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+     </script>
+ </body>
+ </html>
